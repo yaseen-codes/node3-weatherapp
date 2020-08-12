@@ -13,7 +13,7 @@ weatherForm.addEventListener('submit', (e) => {
     messageOne.textContent = 'Loading...'
     messageTwo.textContent = ''
 
-    fetch('http://localhost:3000/weather?address=' + location)
+    fetch('/weather?address=' + location)
     .then((response)=>response.json())
     .then(data2 => {
       if (data2.error) {
@@ -21,10 +21,10 @@ weatherForm.addEventListener('submit', (e) => {
         }
       else {
         messageOne.textContent = data2.loc;
-        messageTwo.textContent = ' It is currently '+ data2.data.forecast;
-        messageThree.textContent = 'The temperature is ' + data2.data.details.temp
-                      + 'C, Max Temp:'+ data2.data.details.temp_max +
-                      'C, Min Temp: '+data2.data.details.temp_min+'C';
+        messageTwo.textContent = ' It is currently '+ data2.data.forecast.weather[0].description;
+        messageThree.textContent = 'The temperature is ' + data2.data.forecast.main.temp
+                      + 'C, Max Temp:'+ data2.data.forecast.main.temp_max +
+                      'C, Min Temp: '+data2.data.forecast.main.temp_min+'C';
     }
   })
 })
